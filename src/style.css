@@ -16,6 +16,11 @@ nav, footer {
   height: auto;
 }
 
+#logo {
+  width: 30px;
+  height: auto;
+}
+
 #app {
   color: #ffffff;
 }
