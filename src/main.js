@@ -11,11 +11,42 @@ document.querySelector('#app').innerHTML = `
     <div id="content">
       <p>Sube el archivo epub para cargar el contenido.</p>
     </div>
+    <div class="button">
+      <button class="btn btn-primary" id="clearButton">Cargar otro libro</button>
+    </div>
 `;
 
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 const contentDiv = document.getElementById('content');
+const clearButton = document.getElementById('clearButton');
+
+window.addEventListener('load', () => {
+  const savedScrollPosition = localStorage.getItem('scrollPosition');
+  const savedContent = localStorage.getItem('contentDiv');
+  
+  if (savedContent !== null && savedContent !== '<p>Sube el archivo epub para cargar el contenido.</p>') {
+    contentDiv.innerHTML = savedContent;
+    dropZone.classList.add('hidden');
+  }
+
+  if (savedScrollPosition) {
+    contentDiv.scrollTo(0, savedScrollPosition);
+  }
+});
+
+contentDiv.addEventListener('scroll', () => {
+  localStorage.setItem('scrollPosition', contentDiv.scrollTop);
+  localStorage.setItem('contentDiv', contentDiv.innerHTML);
+});
+
+clearButton.addEventListener('click', () => {
+  dropZone.classList.remove('hidden');
+  contentDiv.innerHTML = `<p>Sube el archivo epub para cargar el contenido.</p>`;
+  localStorage.removeItem('scrollPosition');
+  localStorage.removeItem('contentDiv'); 
+  console.log(localStorage)
+});
 
 dropZone.addEventListener('click', () => fileInput.click());
 
@@ -52,7 +83,6 @@ async function loadEpub(file) {
   try {
     const loadedZip = await zip.loadAsync(file);
     
-    // Buscar el archivo `content.opf`
     const contentFile = Object.keys(loadedZip.files).find((path) =>
       path.toLowerCase().endsWith('content.opf')
     );
@@ -60,7 +90,6 @@ async function loadEpub(file) {
     if (contentFile) {
       const contentOpf = await loadedZip.file(contentFile).async('text');
       
-      // Extraer la lista de archivos HTML de la tabla de contenidos
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(contentOpf, 'application/xml');
       const manifestItems = xmlDoc.querySelectorAll('manifest item');
@@ -88,28 +117,23 @@ async function renderChapters(zip, htmlFiles) {
 
   for (const htmlFile of htmlFiles) {
     try {
-      // Resolver la ruta relativa desde el directorio de content.opf
       const resolvedPath = resolvePath(zip, htmlFile);
 
-      // Verificar que el archivo existe en el ZIP
       const file = zip.file(resolvedPath);
       if (!file) {
         console.warn(`Archivo no encontrado: ${resolvedPath}`);
         continue;
       }
 
-      // Leer y mostrar el contenido del capítulo
       const htmlContent = await file.async('text');
       chaptersDiv.innerHTML += `<div class="chapter">${htmlContent}</div><hr>`;
     } catch (error) {
       console.error(`Error al cargar el capítulo ${htmlFile}:`, error);
     }
   }
+
   function resolvePath(zip, relativePath) {
-    // Asegurar que las rutas relativas se resuelvan correctamente desde la raíz
     const normalizedPath = relativePath.replace(/^\//, '');
     return Object.keys(zip.files).find((path) => path.endsWith(normalizedPath)) || normalizedPath;
-  
   }
 }
-
