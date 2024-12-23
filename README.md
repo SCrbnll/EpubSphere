@@ -24,7 +24,7 @@ Esto abrirá la aplicación en `http://localhost:5173`.
 2. Navega por los capítulos y guarda tu progreso de lectura.
 3. Haz clic en "Cargar otro libro" para empezar con un nuevo archivo EPUB.
 
-![EpubSphere](epubsphere.png)
+![EpubSphere](EpubShere.png)
 
 ## Visualización
 
