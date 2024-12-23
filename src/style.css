@@ -5,6 +5,7 @@ body {
   background: linear-gradient(to bottom, #2D3A73, #000000);
   background-attachment: fixed;
   overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 nav, footer {
