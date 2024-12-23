@@ -23,4 +23,61 @@ nav, footer {
 
 #app {
   color: #ffffff;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.drop-zone {
+  border: 2px dashed #6c63ff;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+  color: #6c63ff;
+}
+
+.drop-zone:hover {
+  background-color: #f0f0ff;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+#content {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow-y: auto;
+  text-align: start;
+  font-size: 13px;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.hidden {
+  display: none;
+}
+
+.fixed-bottom.bg-dark {
+  z-index: 1030; 
+}
+
+@media (max-width: 767px) {
+  #content {
+    max-height: 500px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  #content {
+    max-height: 900px;
+  }
+}
+
+@media (min-width: 1025px) {
+  #content {
+    max-height: 750px;
+  }
 }

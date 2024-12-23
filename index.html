@@ -20,14 +20,25 @@
     
 
     <!-- App Root -->
-    <div id="app"></div>
+    <div id="app" class="container"></div>
 
     <!-- Footer -->
-    <footer class="row border-top text-white">
-      <div class="col-12 col-md-11 d-flex justify-content-center justify-content-md-start my-1 my-md-3">
+    <footer class="row border-top text-white d-none d-md-flex fixed-bottom">
+      <div class="col-12 col-md-11 d-flex justify-content-center justify-content-md-start my-1">
         <p class="mx-3 mx-md-5">&copy; EpubSphere - Creado por SCrbnll</p>
       </div>
-      <div class="col-12 col-md-1 d-flex justify-content-center justify-content-md-end my-1 my-md-3">
+      <div class="col-12 col-md-1 d-flex justify-content-center justify-content-md-end my-1">
+        <a href="https://github.com/SCrbnll" target="_blank" class="mx-5 mb-3 mb-md-0">
+          <img id="github-logo" src="/github.png" alt="GitHub Logo" />
+        </a>
+      </div>
+    </footer>
+
+    <footer class="row border-top text-white d-md-none">
+      <div class="col-12 col-md-11 d-flex justify-content-center justify-content-md-start my-1">
+        <p class="mx-3 mx-md-5">&copy; EpubSphere - Creado por SCrbnll</p>
+      </div>
+      <div class="col-12 col-md-1 d-flex justify-content-center justify-content-md-end my-1">
         <a href="https://github.com/SCrbnll" target="_blank" class="mx-5 mb-3 mb-md-0">
           <img id="github-logo" src="/github.png" alt="GitHub Logo" />
         </a>
@@ -37,4 +48,3 @@
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
-d
